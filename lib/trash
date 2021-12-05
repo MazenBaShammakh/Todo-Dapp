@@ -1,0 +1,52 @@
+
+
+// body: todoList.isLoading
+      //     ? const Center(
+      //         child: CircularProgressIndicator(),
+      //       )
+      //     : Column(
+      //         children: [
+      //           Expanded(
+      //             flex: 4,
+      //             child: ListView.builder(
+      //               itemCount: todoList.todosCounter,
+      //               itemBuilder: (_, index) => ListTile(
+      //                 title: Text(
+      //                   todoList.todosList[index].title,
+      //                 ),
+      //               ),
+      //             ),
+      //           ),
+      //           Expanded(
+      //             flex: 1,
+      //             child: Row(
+      //               children: [
+      //                 Expanded(
+      //                   flex: 4,
+      //                   child: TextField(
+      //                     controller: _todoController,
+      //                   ),
+      //                 ),
+      //                 Expanded(
+      //                   flex: 1,
+      //                   child: ElevatedButton(
+      //                     onPressed: () {
+      //                       todoList.addTodo(_todoController.text);
+      //                     },
+      //                     child: Text('Add Todo'),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      // !
+      // body: Center(
+      //   child: ElevatedButton(
+      //     onPressed: () {
+      //       todoList.checkConnection();
+      //     },
+      //     child: const Text('Check Web3 Connection'),
+      //   ),
+      // ),
