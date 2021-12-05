@@ -50,7 +50,10 @@ class _NewTodoState extends State<NewTodo> {
           IconButton(
             onPressed: () {
               final todoList = Provider.of<TodoList>(context, listen: false);
-              todoList.addTodo(_todoController.text);
+              final ethAddress =
+                  Provider.of<EthAddress>(context, listen: false);
+              todoList.addTodo(
+                  ethAddress.cred, ethAddress.ethAddress, _todoController.text);
               _todoController.clear();
               FocusScopeNode currentFocus = FocusScope.of(context);
 

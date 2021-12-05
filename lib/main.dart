@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => TodoList(),
+      create: (_) => EthAddress(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Todos',

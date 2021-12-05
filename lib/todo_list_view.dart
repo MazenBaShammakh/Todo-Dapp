@@ -59,7 +59,12 @@ class _TodoListViewState extends State<TodoListView> {
                             leading: Consumer<Todo>(
                               builder: (_, todo, ch) => GestureDetector(
                                 onTap: () {
+                                  final ethAddress = Provider.of<EthAddress>(
+                                      context,
+                                      listen: false);
                                   todoList.toggleIsCompletedFunc(
+                                      ethAddress.cred,
+                                      ethAddress.ethAddress,
                                       BigInt.from(todo.id));
                                   setState(() {
                                     _todos[index].isCompleted =
@@ -124,7 +129,12 @@ class _TodoListViewState extends State<TodoListView> {
                             trailing: Consumer<Todo>(
                               builder: (_, todo, ch) => IconButton(
                                 onPressed: () {
+                                  final ethAddress = Provider.of<EthAddress>(
+                                      context,
+                                      listen: false);
                                   todoList.deleteTodoFunc(
+                                    ethAddress.cred,
+                                    ethAddress.ethAddress,
                                     BigInt.from(todo.id),
                                   );
                                   setState(() {

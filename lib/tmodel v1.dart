@@ -35,7 +35,7 @@ class TodoList extends ChangeNotifier {
 
   Future<void> checkConnection() async {
     final netId = await web3.client.getNetworkId();
-    print(netId);
+    // print(netId);
   }
 
   // contract calls
@@ -44,7 +44,7 @@ class TodoList extends ChangeNotifier {
         .call(contract: web3.contract, function: web3.todosCount, params: []);
     BigInt totalTasks = totalTasksList[0];
     taskCount = totalTasks.toInt();
-    print(totalTasks);
+    // print(totalTasks);
 
     _todos.clear();
     for (var i = 0; i < totalTasks.toInt(); i++) {
@@ -121,7 +121,7 @@ class Web3 {
     _contractAddress = EthereumAddress.fromHex(
       jsonAbi["networks"]["5777"]["address"],
     );
-    print(_contractAddress);
+    // print(_contractAddress);
 
     // get deployed contract after getting abi
     initDeployedContract();
@@ -133,7 +133,7 @@ class Web3 {
       ContractAbi.fromJson(_abiCode, "TodoList"),
       _contractAddress,
     );
-    print(contract.address);
+    // print(contract.address);
 
     // get contract functions & events after getting contract
     initContractFuncsEvents();

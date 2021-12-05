@@ -20,42 +20,48 @@ class TodosScreen extends StatefulWidget {
 class _TodosScreenState extends State<TodosScreen> {
   @override
   Widget build(BuildContext context) {
-    // final todoList = Provider.of<TodoList>(context);
+    final ethAddress = Provider.of<EthAddress>(
+      context,
+      listen: false,
+    );
     // List<Todo> _todos = todoList.todosList;
     const sizedBox = SizedBox(height: kDefaultSpacing * 4);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
+    return ChangeNotifierProvider(
+      create: (_) => TodoList(ethAddress.ethAddress),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
 
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-          // print('tapped');
-        },
-        child: Container(
-          padding: EdgeInsets.only(
-            right: kDefaultSpacing * 4,
-            left: kDefaultSpacing * 4,
-            top: kDefaultSpacing * 6 + MediaQuery.of(context).viewPadding.top,
-          ),
-          width: double.infinity,
-          height: double.infinity,
-          decoration: decorationBodyContainer(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              title(),
-              sizedBox,
-              NewTodo(),
-              sizedBox,
-              TodoListView(),
-              sizedBox,
-              Filters(),
-              sizedBox,
-              dragDropNote(),
-            ],
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+            // print('tapped');
+          },
+          child: Container(
+            padding: EdgeInsets.only(
+              right: kDefaultSpacing * 4,
+              left: kDefaultSpacing * 4,
+              top: kDefaultSpacing * 6 + MediaQuery.of(context).viewPadding.top,
+            ),
+            width: double.infinity,
+            height: double.infinity,
+            decoration: decorationBodyContainer(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                title(),
+                sizedBox,
+                NewTodo(),
+                sizedBox,
+                TodoListView(),
+                sizedBox,
+                Filters(),
+                sizedBox,
+                dragDropNote(),
+              ],
+            ),
           ),
         ),
       ),
