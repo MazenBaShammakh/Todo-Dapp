@@ -1,4 +1,5 @@
-![Mobile UI Design](https://github.com/MazenBaShammakh/Todo-Dapp/blob/main/assets/design/mobile-design-light.jpg)
+![Mobile UI Design - Auth Screen](https://github.com/MazenBaShammakh/Todo-Dapp/blob/main/assets/design/ui-auth-screen.jpg)
+![Mobile UI Design - Todos Screen](https://github.com/MazenBaShammakh/Todo-Dapp/blob/main/assets/design/ui-todos-screen.jpg)
 
 # Todo Dapp
 A decentralized application for managing todo lists, built using Flutter for the front-end development and Solidity for the smart contract.
