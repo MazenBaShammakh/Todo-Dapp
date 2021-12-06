@@ -1,16 +1,28 @@
-# dapp_todo_list
+![Mobile UI Design](https://github.com/MazenBaShammakh/Todo-Dapp/blob/main/assets/design/mobile-design-light.jpg)
 
-A new Flutter project.
+# Todo Dapp
+A decentralized application for managing todo lists, built using Flutter for the front-end development and Solidity for the smart contract.
 
 ## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-This project is a starting point for a Flutter application.
+### Prerequisites
+The things you'll need in order to use the app:
+* Flutter SDK
+* iOS/Android Emulator or Real iOS/Android Device
+* NPM
+* Truffle
+* Ganache
 
-A few resources to get you started if this is your first Flutter project:
+## Built with
+* [Flutter](https://www.flutter.dev)
+* [Solidity](https://www.soliditylang.org/) 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Authors
+* **Mazen Ba Shammakh** 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgements
+* The UI design was inspired from [Frontend Mentor](https://www.frontendmentor.io/)
