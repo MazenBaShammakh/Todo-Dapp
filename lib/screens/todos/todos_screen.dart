@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import './constants.dart';
-import './todos_model.dart';
+import '../../constants.dart';
+import '../../models/todos_model.dart';
 import './new_todo.dart';
 import './todo_list_view.dart';
 import 'filters.dart';
@@ -48,19 +48,21 @@ class _TodosScreenState extends State<TodosScreen> {
             width: double.infinity,
             height: double.infinity,
             decoration: decorationBodyContainer(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                title(),
-                sizedBox,
-                NewTodo(),
-                sizedBox,
-                TodoListView(),
-                sizedBox,
-                Filters(),
-                sizedBox,
-                dragDropNote(),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  title(),
+                  sizedBox,
+                  NewTodo(),
+                  sizedBox,
+                  TodoListView(),
+                  sizedBox,
+                  Filters(),
+                  sizedBox,
+                  dragDropNote(),
+                ],
+              ),
             ),
           ),
         ),

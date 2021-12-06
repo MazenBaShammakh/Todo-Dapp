@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import './constants.dart';
-import './todos_model.dart';
+import '../../constants.dart';
+import '../../models/todos_model.dart';
 
 class TodoListView extends StatefulWidget {
   const TodoListView({
@@ -22,7 +22,6 @@ class _TodoListViewState extends State<TodoListView> {
     List<Todo> _todos =
         filterTodos(todoList.todosList, todoList.filter) as List<Todo>;
     // print(_todos.length);
-    // print(todoList.todosCounter);
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * .5,
@@ -38,7 +37,8 @@ class _TodoListViewState extends State<TodoListView> {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : todoList.todosCounter == 0
+                // : todoList.todosCounter == 0
+                : _todos.isEmpty
                     ? Padding(
                         padding: const EdgeInsets.all(kDefaultSpacing * 4),
                         child: Center(
@@ -158,7 +158,7 @@ class _TodoListViewState extends State<TodoListView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${incompleteTodosCount(filterTodos(todoList.todosList, 0) as List<Todo>)} items left',
+                  '${incompleteTodosCount(filterTodos(todoList.todosList, 0) as List<Todo>)} todos left',
                   style: GoogleFonts.josefinSans(
                     color: kLightThemeDarkGrayishBlue,
                     fontWeight: FontWeight.w700,

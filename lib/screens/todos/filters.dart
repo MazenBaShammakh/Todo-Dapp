@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './constants.dart';
-import './todos_model.dart';
+import '../../constants.dart';
+import '../../models/todos_model.dart';
 
 class Filters extends StatefulWidget {
   const Filters({

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import './constants.dart';
-import 'todos_model.dart';
+import '../../constants.dart';
+import '../../models/todos_model.dart';
 
 class NewTodo extends StatefulWidget {
   const NewTodo({

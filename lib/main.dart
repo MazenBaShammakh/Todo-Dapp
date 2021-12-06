@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './constants.dart';
-import './auth_screen.dart';
-import './todos_screen.dart';
-import './todos_model.dart';
+import 'screens/auth/auth_screen.dart';
+import './screens/todos/todos_screen.dart';
+import 'models/todos_model.dart';
 
 void main() {
   runApp(const MyApp());
