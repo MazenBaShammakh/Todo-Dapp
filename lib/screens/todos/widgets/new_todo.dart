@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
-import '../../models/todos_model.dart';
+import '../../../constants.dart';
+import '../../../models/todolist_model.dart';
+import '../../../models/ethaddress_model.dart';
 
 class NewTodo extends StatefulWidget {
   const NewTodo({
@@ -48,23 +49,24 @@ class _NewTodoState extends State<NewTodo> {
             ),
           ),
           IconButton(
-            onPressed: () {
-              final todoList = Provider.of<TodoList>(context, listen: false);
-              final ethAddress =
-                  Provider.of<EthAddress>(context, listen: false);
-              todoList.addTodo(
-                  ethAddress.cred, ethAddress.ethAddress, _todoController.text);
-              _todoController.clear();
-              FocusScopeNode currentFocus = FocusScope.of(context);
-
-              if (!currentFocus.hasPrimaryFocus) {
-                currentFocus.unfocus();
-              }
-            },
+            onPressed: _addTodo,
             icon: const Icon(Icons.add),
           ),
         ],
       ),
     );
+  }
+
+  void _addTodo() {
+    final todoList = Provider.of<TodoList>(context, listen: false);
+    final ethAddress = Provider.of<EthAddress>(context, listen: false);
+    todoList.addTodo(
+        ethAddress.cred, ethAddress.ethAddress, _todoController.text);
+    _todoController.clear();
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
   }
 }

@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants.dart';
-import '../../models/todos_model.dart';
-import './new_todo.dart';
-import './todo_list_view.dart';
-import 'filters.dart';
+import '../../models/todolist_model.dart';
+import '../../models/ethaddress_model.dart';
+import './widgets/new_todo.dart';
+import './widgets/todo_list_view.dart';
+import './widgets/filters.dart';
 
 class TodosScreen extends StatefulWidget {
   const TodosScreen({Key? key}) : super(key: key);
@@ -24,7 +25,6 @@ class _TodosScreenState extends State<TodosScreen> {
       context,
       listen: false,
     );
-    // List<Todo> _todos = todoList.todosList;
     const sizedBox = SizedBox(height: kDefaultSpacing * 4);
     return ChangeNotifierProvider(
       create: (_) => TodoList(ethAddress.ethAddress),
@@ -54,11 +54,11 @@ class _TodosScreenState extends State<TodosScreen> {
                 children: [
                   title(),
                   sizedBox,
-                  NewTodo(),
+                  const NewTodo(),
                   sizedBox,
-                  TodoListView(),
+                  const TodoListView(),
                   sizedBox,
-                  Filters(),
+                  const Filters(),
                   sizedBox,
                   dragDropNote(),
                 ],
@@ -70,8 +70,8 @@ class _TodosScreenState extends State<TodosScreen> {
     );
   }
 
-  Container dragDropNote() {
-    return Container(
+  SizedBox dragDropNote() {
+    return SizedBox(
       width: double.infinity,
       child: Text(
         'Drag and drop to reorder list',

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import './constants.dart';
 import 'screens/auth/auth_screen.dart';
 import './screens/todos/todos_screen.dart';
-import 'models/todos_model.dart';
+import 'models/ethaddress_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: materialColor,
         ),
-        // home: const TodosScreen(),
         initialRoute: AuthScreen.routeName,
         routes: {
           AuthScreen.routeName: (_) => const AuthScreen(),

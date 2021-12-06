@@ -1,11 +1,12 @@
+import 'package:dapp_todo_list/screens/auth/widgets/private_key_input.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:web3dart/web3dart.dart';
 
 import '../../constants.dart';
-import '../../models/todos_model.dart';
-import '../todos/todos_screen.dart';
+import '../../models/ethaddress_model.dart';
+import './widgets/eth_data_card.dart';
+import './widgets/confirm_account_button.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -17,20 +18,30 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  TextEditingController _keyController = TextEditingController();
-  bool _generatedEthAddress = false;
-  EthereumAddress? _ethAddress;
+  late TextEditingController _keyController;
+
+  @override
+  void initState() {
+    _keyController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _keyController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final ethAddress = Provider.of<EthAddress>(context);
     const sizedBox = SizedBox(height: kDefaultSpacing * 4);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
-
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
@@ -50,149 +61,14 @@ class _AuthScreenState extends State<AuthScreen> {
               children: [
                 title(),
                 sizedBox,
-                Container(
-                  width: double.infinity,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: kDefaultSpacing),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(kDefaultSpacing),
-                    color: kLightThemeVeryLightGrayishBlue,
-                  ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: kDefaultSpacing),
-                      Expanded(
-                        child: TextField(
-                          controller: _keyController,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                            ),
-                            hintText: 'Paste your private key here',
-                            hintStyle: GoogleFonts.josefinSans(
-                              fontSize: 18,
-                            ),
-                            contentPadding: const EdgeInsets.all(0),
-                          ),
-                          style: GoogleFonts.josefinSans(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () async {
-                          String? pk = validatePK(_keyController.text);
-                          if (pk != null) {
-                            final ethAddress = Provider.of<EthAddress>(
-                              context,
-                              listen: false,
-                            );
-                            ethAddress.setPrivateKey = pk;
-                            await ethAddress.initCred();
-                            _keyController.clear();
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-
-                            if (!currentFocus.hasPrimaryFocus) {
-                              currentFocus.unfocus();
-                            }
-
-                            setState(() {
-                              _ethAddress = ethAddress.ethAddress;
-                              _generatedEthAddress = true;
-                            });
-                          }
-                        },
-                        icon: const Icon(Icons.arrow_forward),
-                      ),
-                    ],
-                  ),
+                PrivateKeyInput(keyController: _keyController),
+                sizedBox,
+                EthDataCard(
+                  ethAddress: ethAddress,
+                  sizedBox: sizedBox,
                 ),
                 sizedBox,
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(kDefaultSpacing * 4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(kDefaultSpacing),
-                    color: kLightThemeVeryLightGrayishBlue,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      EthAddressData(
-                        isAddressGenerated: ethAddress.ethAddress == null,
-                        title: 'Ethereum Address',
-                        placeholder: '0x..',
-                        data: ethAddress.ethAddress == null
-                            ? ''
-                            : '0x${ethAddress.ethAddress!.hex.substring(2).toUpperCase()}',
-                      ),
-                      sizedBox,
-                      EthAddressData(
-                        isAddressGenerated: ethAddress.ethAddress == null,
-                        title: 'Ether Amount',
-                        placeholder: '0.00 ETH',
-                        data: ethAddress.ethAddress == null
-                            ? ''
-                            : '${ethAddress.getEthAmount} ETH',
-                      ),
-                      sizedBox,
-                      EthAddressData(
-                        isAddressGenerated: ethAddress.ethAddress == null,
-                        title: 'Transaction Count',
-                        placeholder: '0',
-                        data: ethAddress.ethAddress == null
-                            ? ''
-                            : '${ethAddress.getTxCount}',
-                      ),
-                      sizedBox,
-                      EthAddressData(
-                        isAddressGenerated: ethAddress.ethAddress == null,
-                        title: 'Gas Price (in WEI)',
-                        placeholder: '0 WEI',
-                        data: ethAddress.ethAddress == null
-                            ? ''
-                            : '${ethAddress.getGasPriceInWei} WEI',
-                      ),
-                      sizedBox,
-                      EthAddressData(
-                        isAddressGenerated: ethAddress.ethAddress == null,
-                        title: 'Gas Price (in ETH)',
-                        placeholder: '0 ETH',
-                        data: ethAddress.ethAddress == null
-                            ? ''
-                            : '${ethAddress.getGasPriceInEth} ETH',
-                      ),
-                    ],
-                  ),
-                ),
-                sizedBox,
-                Container(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: ethAddress.ethAddress == null
-                        ? null
-                        : () {
-                            Navigator.of(context)
-                                .pushReplacementNamed(TodosScreen.routeName);
-                          },
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                        const EdgeInsets.symmetric(
-                            vertical: kDefaultSpacing * 2),
-                      ),
-                      elevation: MaterialStateProperty.all<double>(0.0),
-                    ),
-                    child: Text(
-                      'Confirm account',
-                      style: GoogleFonts.josefinSans(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
+                ConfirmAccountButton(ethAddress: ethAddress),
               ],
             ),
           ),
@@ -266,41 +142,6 @@ class _AuthScreenState extends State<AuthScreen> {
           letterSpacing: kDefaultSpacing,
         ),
       ),
-    );
-  }
-}
-
-class EthAddressData extends StatelessWidget {
-  const EthAddressData({
-    Key? key,
-    required this.isAddressGenerated,
-    required this.title,
-    required this.placeholder,
-    required this.data,
-  }) : super(key: key);
-
-  final bool isAddressGenerated;
-  final String title;
-  final String placeholder;
-  final String? data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title),
-        const SizedBox(height: kDefaultSpacing),
-        Text(
-          isAddressGenerated ? placeholder : data!,
-          textAlign: TextAlign.left,
-          style: GoogleFonts.josefinSans(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            height: 1.25,
-          ),
-        ),
-      ],
     );
   }
 }
